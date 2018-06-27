@@ -7,9 +7,9 @@ const IP = process.env.IP || '0.0.0.0';
 var knex = require('knex')({
     client: 'postgresql',
     connection: {
-        user : 'vagrant',
-        password : '0000',
-        database : 'chatting'
+        user : 'dbl1n6a8vhi4ji',
+        password : 'kkisdnelugakuz',
+        database : 'b2aa7c36f3d3ee6431332ba99ad35260f7399115aad77f4ab66b29a887bb7dd5'
     },
     migrations: {
         tableName: 'knex_migrations'
