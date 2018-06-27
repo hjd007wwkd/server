@@ -63,7 +63,7 @@ module.exports = function (server, config, knex) {
             client.room = name;
 
             knex.select().from('messages').then(function(rows) {
-                client.emit('message', {type: 'addMessage', payload: 'asdasd'});
+                client.emit('message', {type: 'addMessage', payload: rows});
             })
         }
 
