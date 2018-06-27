@@ -4,17 +4,9 @@ var sockets = require('./sockets');
 var config = require('getconfig');
 const PORT = process.env.PORT || 8888;
 const IP = process.env.IP || '0.0.0.0';
-var knex = require('knex')({
-    client: 'postgresql',
-    connection: {
-        user : 'vagrant',
-        password : '0000',
-        database : 'chatting'
-    },
-    migrations: {
-        tableName: 'knex_migrations'
-    }
-});
+var env = process.env.NODE_ENV || 'development';
+var config = require('./knexfile')[env];
+var knex = require('knex')(config);
 
 app.use(express.static(__dirname+"/public"));
 
