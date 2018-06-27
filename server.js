@@ -5,8 +5,8 @@ var config = require('getconfig');
 const PORT = process.env.PORT || 8888;
 const IP = process.env.IP || '0.0.0.0';
 var env = process.env.NODE_ENV || 'production';
-var config = require('./knexfile')[env];
-var knex = require('knex')(config);
+var confi = require('./knexfile')[env];
+var knex = require('knex')(confi);
 
 app.use(express.static(__dirname+"/public"));
 
