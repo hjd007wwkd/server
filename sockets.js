@@ -19,16 +19,17 @@ module.exports = function (server, config, knex) {
             var otherClient = io.to(details.to);
             if (!otherClient) return;
 
-            if(details.type === 'addMsg'){
-                console.log(1);
-                knex('messages').insert({content: details.payload.message.content, user_id: details.payload.userId, room_id: details.payload.roomId}).then(function(){
-                    console.log('success')
-                })
-            }
-
             details.from = client.id;
             otherClient.emit('message', details);
         });
+
+        client.on('addMsg', function (msg){
+            knex('messages').insert({content: details.payload.message.content, user_id: details.payload.userId, room_id: details.payload.roomId}).then(function(){
+                console.log('success')
+            })
+            console.log(msg);
+            client.broadcast.emit('message', {type: 'addMsg', message: msg})
+        })
 
         client.on('shareScreen', function () {
             client.resources.screen = true;
