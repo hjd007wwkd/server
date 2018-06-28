@@ -2,7 +2,7 @@ var socketIO = require('socket.io'),
     uuid = require('node-uuid'),
     crypto = require('crypto');
 
-clients = {}
+clients = {};
 
 module.exports = function (server, config, knex) {
     var io = socketIO.listen(server);
@@ -28,6 +28,10 @@ module.exports = function (server, config, knex) {
             }
             clients[client.room].push(client.username);
             io.in(client.room).emit('message', {type: 'addPeerInfo', peers: clients[client.room]})
+        })
+
+        client.on('hideVideo', function (data) {
+            client.to(client.room).emit('message', {type: 'hideVideo', peer: data})
         })
 
         // pass a message to another id
