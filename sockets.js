@@ -2,6 +2,8 @@ var socketIO = require('socket.io'),
     uuid = require('node-uuid'),
     crypto = require('crypto');
 
+clients = {}
+
 module.exports = function (server, config, knex) {
     var io = socketIO.listen(server);
 
@@ -21,6 +23,15 @@ module.exports = function (server, config, knex) {
 
         client.on('sendPeerInfo', function (){
             io.in(client.room).emit('message', {type: 'addPeerInfo'})
+        })
+
+        client.on('setUsername', function (data){
+            client.username = data
+            if(!clients[client.room]){
+                clients[client.room] = []
+            }
+            clients[client.room].push(client.username);
+            io.in(client.room).emit('message', {type: 'addPeerInfo', peers: clients[client.room]})
         })
 
         // pass a message to another id
@@ -83,9 +94,20 @@ module.exports = function (server, config, knex) {
         // event type string of "socket end" gets passed too.
         client.on('disconnect', function () {
             removeFeed();
+            const index = clients[client.room].indexOf(client.username);
+            if (index > -1) {
+              clients[client.room].splice(index, 1);
+            }
+            io.in(client.room).emit('message', {type: 'removePeerInfo', peers: clients[client.room]})
         });
         client.on('leave', function () {
             removeFeed();
+            const index = clients[client.room].indexOf(client.username);
+            if (index > -1) {
+              clients[client.room].splice(index, 1);
+            }
+            io.in(client.room).emit('message', {type: 'removePeerInfo', peers: clients[client.room]})
+
         });
 
         client.on('create', function (name, cb) {
