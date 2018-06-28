@@ -12,6 +12,13 @@ module.exports = function (server, config, knex) {
             audio: false
         };
 
+        client.on('addMsg', function (msg){
+            // knex('messages').insert({content: details.payload.message.content, user_id: details.payload.userId, room_id: details.payload.roomId}).then(function(){
+            //     console.log('success')
+            // })
+            client.broadcast.emit('message', {type: 'addMsg', message: msg})
+        })
+
         // pass a message to another id
         client.on('message', function (details) {
             if (!details) return;
@@ -22,14 +29,6 @@ module.exports = function (server, config, knex) {
             details.from = client.id;
             otherClient.emit('message', details);
         });
-
-        client.on('addMsg', function (msg){
-            knex('messages').insert({content: details.payload.message.content, user_id: details.payload.userId, room_id: details.payload.roomId}).then(function(){
-                console.log('success')
-            })
-            console.log(msg);
-            client.broadcast.emit('message', {type: 'addMsg', message: msg})
-        })
 
         client.on('shareScreen', function () {
             client.resources.screen = true;
