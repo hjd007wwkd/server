@@ -61,6 +61,7 @@ module.exports = function (server, config, knex) {
                 if (!type) {
                     client.leave(client.room);
                     client.room = undefined;
+                    client.username = undefined;
                 }
             }
         }
@@ -89,7 +90,6 @@ module.exports = function (server, config, knex) {
         // we don't want to pass "leave" directly because the
         // event type string of "socket end" gets passed too.
         client.on('disconnect', function () {
-            removeFeed();
             if(client.username && clients[client.room]) {
                 const index = clients[client.room].indexOf(client.username);
                 if (index > -1) {
@@ -97,9 +97,9 @@ module.exports = function (server, config, knex) {
                 }
                 io.in(client.room).emit('message', {type: 'removePeerInfo', peers: clients[client.room]})
             }
+            removeFeed();
         });
         client.on('leave', function () {
-            removeFeed();
             if(client.username && clients[client.room]) {
                 const index = clients[client.room].indexOf(client.username);
                 if (index > -1) {
@@ -107,7 +107,7 @@ module.exports = function (server, config, knex) {
                 }
                 io.in(client.room).emit('message', {type: 'removePeerInfo', peers: clients[client.room]})
             }
-
+            removeFeed();
         });
 
         client.on('create', function (name, cb) {
