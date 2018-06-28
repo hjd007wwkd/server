@@ -87,26 +87,24 @@ module.exports = function (server, config, knex) {
             })
         }
 
+        function siginalLost() {
+            if(client.username && clients[client.room]) {
+                const index = clients[client.room].indexOf(client.username);
+                if (index > -1) {
+                  clients[client.room].splice(index, 1);
+                }
+                io.in(client.room).emit('message', {type: 'removePeerInfo', peers: clients[client.room]})
+            }
+        }
+
         // we don't want to pass "leave" directly because the
         // event type string of "socket end" gets passed too.
         client.on('disconnect', function () {
-            if(client.username && clients[client.room]) {
-                const index = clients[client.room].indexOf(client.username);
-                if (index > -1) {
-                  clients[client.room].splice(index, 1);
-                }
-                io.in(client.room).emit('message', {type: 'removePeerInfo', peers: clients[client.room]})
-            }
+            siginalLost()
             removeFeed();
         });
         client.on('leave', function () {
-            if(client.username && clients[client.room]) {
-                const index = clients[client.room].indexOf(client.username);
-                if (index > -1) {
-                  clients[client.room].splice(index, 1);
-                }
-                io.in(client.room).emit('message', {type: 'removePeerInfo', peers: clients[client.room]})
-            }
+            siginalLost()
             removeFeed();
         });
 
