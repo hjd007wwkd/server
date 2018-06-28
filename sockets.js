@@ -26,6 +26,7 @@ module.exports = function (server, config, knex) {
         })
 
         client.on('setUsername', function (data){
+            console.log(data);
             client.username = data
             if(!clients[client.room]){
                 clients[client.room] = []
