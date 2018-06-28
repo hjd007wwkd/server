@@ -19,6 +19,10 @@ module.exports = function (server, config, knex) {
             client.broadcast.emit('message', {type: 'addMsg', message: msg})
         })
 
+        client.on('sendPeerInfo', function (){
+            client.broadcast.emit('addPeerInfo', {type: 'addPeerInfo'})
+        })
+
         // pass a message to another id
         client.on('message', function (details) {
             if (!details) return;
