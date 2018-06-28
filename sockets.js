@@ -20,6 +20,7 @@ module.exports = function (server, config, knex) {
             if (!otherClient) return;
 
             if(details.type === 'addMsg'){
+                console.log('asadssa')
                 knex('messages').insert({content: details.payload.message.content, user_id: details.payload.userId, room_id: details.payload.roomId})
             }
 
