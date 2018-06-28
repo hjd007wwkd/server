@@ -16,11 +16,11 @@ module.exports = function (server, config, knex) {
             knex('messages').insert({content: msg.message.content, user_id: msg.userId, room_id: msg.roomId}).then(function(){
                 console.log('success')
             })
-            client.broadcast.emit('message', {type: 'addMsg', message: msg})
+            client.to(client.room).emit('message', {type: 'addMsg', message: msg})
         })
 
         client.on('sendPeerInfo', function (){
-            client.broadcast.emit('message', {type: 'addPeerInfo'})
+            client.to(client.room).emit('message', {type: 'addPeerInfo'})
         })
 
         // pass a message to another id
