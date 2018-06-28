@@ -20,7 +20,7 @@ module.exports = function (server, config, knex) {
         })
 
         client.on('sendPeerInfo', function (){
-            client.to(client.room).emit('message', {type: 'addPeerInfo'})
+            io.in(client.room).emit('message', {type: 'addPeerInfo'})
         })
 
         // pass a message to another id
