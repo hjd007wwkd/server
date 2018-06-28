@@ -13,9 +13,9 @@ module.exports = function (server, config, knex) {
         };
 
         client.on('addMsg', function (msg){
-            // knex('messages').insert({content: details.payload.message.content, user_id: details.payload.userId, room_id: details.payload.roomId}).then(function(){
-            //     console.log('success')
-            // })
+            knex('messages').insert({content: msg.message.content, user_id: msg.userId, room_id: msg.roomId}).then(function(){
+                console.log('success')
+            })
             client.broadcast.emit('message', {type: 'addMsg', message: msg})
         })
 
