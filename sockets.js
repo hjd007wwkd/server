@@ -94,7 +94,7 @@ module.exports = function (server, config, knex) {
         // event type string of "socket end" gets passed too.
         client.on('disconnect', function () {
             removeFeed();
-            if(client.username) {
+            if(client.username && clients[client.room]) {
                 const index = clients[client.room].indexOf(client.username);
                 if (index > -1) {
                   clients[client.room].splice(index, 1);
@@ -104,7 +104,7 @@ module.exports = function (server, config, knex) {
         });
         client.on('leave', function () {
             removeFeed();
-            if(client.username) {
+            if(client.username && clients[client.room]) {
                 const index = clients[client.room].indexOf(client.username);
                 if (index > -1) {
                   clients[client.room].splice(index, 1);
