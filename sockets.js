@@ -20,6 +20,7 @@ module.exports = function (server, config, knex) {
         })
 
         client.on('sendPeerInfo', function (){
+            console.log('asdasddas');
             client.broadcast.emit('addPeerInfo', {type: 'addPeerInfo'})
         })
 
