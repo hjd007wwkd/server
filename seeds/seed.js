@@ -30,7 +30,7 @@ exports.seed = function(knex, Promise) {
     })
     .then(function() {
       return knex('rooms').insert(
-        {name: 'room', image: 'hahaha', description: 'hahaha', subtopic_id: 1}
+        {name: 'roomNn', image: 'hahaha', description: 'hahaha', subtopic_id: 1}
       );
     })
     .then(function() {
