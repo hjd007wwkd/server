@@ -19,9 +19,12 @@ module.exports = function (server, config, knex) {
             var otherClient = io.to(details.to);
             if (!otherClient) return;
 
+            if(details.type === 'addMsg'){
+                knex('messages').insert({content: details.payload.message.content, user_id: details.payload.userId, room_id: details.payload.roomId})
+            }
+
             details.from = client.id;
             otherClient.emit('message', details);
-            console.log(details);
         });
 
         client.on('shareScreen', function () {
@@ -64,8 +67,8 @@ module.exports = function (server, config, knex) {
             client.room = name;
 
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
-            .select('messages.content', 'messages.created_at', 'users.username').where('rooms.name', name).then(function(rows) {
-                client.emit('message', {type: 'initMsg', payload: rows});
+            .select('messages.content', 'messages.created_at', 'users.username', 'rooms.id').where('rooms.name', name).then(function(rows) {
+                client.emit('message', {type: 'initMsg', payload: {messages: rows, room: {roomId: rows[0].rooms.id}}});
             })
         }
 
