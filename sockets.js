@@ -20,6 +20,9 @@ module.exports = function (server, config, knex) {
             if (!otherClient) return;
 
             if(details.type === 'addMsg'){
+                console.log(details.payload.message.content)
+                console.log(details.payload.userId)
+                console.log(details.payload.roomId)
                 knex('messages').insert({content: details.payload.message.content, user_id: details.payload.userId, room_id: details.payload.roomId}).then(function(){
                     console.log('sucess')
                 })
