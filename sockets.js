@@ -21,10 +21,6 @@ module.exports = function (server, config, knex) {
             client.to(client.room).emit('message', {type: 'addMsg', message: msg})
         })
 
-        client.on('sendPeerInfo', function (){
-            io.in(client.room).emit('message', {type: 'addPeerInfo'})
-        })
-
         client.on('setUsername', function (data){
             client.username = data
             if(!clients[client.room]){
