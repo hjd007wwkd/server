@@ -21,6 +21,7 @@ module.exports = function (server, config, knex) {
 
             details.from = client.id;
             otherClient.emit('message', details);
+            console.log(details);
         });
 
         client.on('shareScreen', function () {
