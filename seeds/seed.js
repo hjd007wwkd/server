@@ -19,7 +19,7 @@ exports.seed = function(knex, Promise) {
         {name: 'b', email: 'b@b.com', username: 'Karl4563452', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'},
         {name: 'c', email: 'c@c.com', username: 'Sarah45345', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'},
         {name: 'd', email: 'd@d.com', username: 'Jrodan111', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'},
-        {name: 'e', email: 'e@e.com', username: 'Bob3452', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'},
+        {name: 'e', email: 'e@e.com', username: 'Bob3452', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'}
       ]);
     })
     .then(function() {
@@ -31,7 +31,7 @@ exports.seed = function(knex, Promise) {
       ]);
     })
     .then(function() {
-      return knex('subtopics').insert(
+      return knex('subtopics').insert([
         {name: 'Big 5', topic_id: 1},
         {name: 'Big Data', topic_id: 1},
         {name: 'Startups', topic_id: 1},
@@ -65,30 +65,30 @@ exports.seed = function(knex, Promise) {
         {name: 'Canada', topic_id: 4},
         {name: 'England', topic_id: 4},
         {name: 'Russia', topic_id: 4},
-        {name: 'Middle East', topic_id: 4},
-      );
+        {name: 'Middle East', topic_id: 4}
+      ]);
     })
     .then(function() {
-      return knex('rooms').insert(
-        {name: 'Sports Central', image: 'https://i.ytimg.com/vi/YBi6-UoXxZw/maxresdefault.jpg', description: 'hahaha', user_id: 1, subtopic_id: 2}
-        {name: 'Politics Now', image: 'https://static.makeuseof.com/wp-content/uploads/2017/08/twitch-change-video-gaming-670x335.jpg', description: 'hahaha', user_id: 2, subtopic_id: 2}
-        {name: 'eSports eSports', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczL8wU1EYEbH9eFpSVoM7UwKeQDAsNtqEhL0S155TUcN_bdUO', description: 'hahaha', user_id: 3, subtopic_id: 3}
-        {name: 'FoodCentral', image: 'https://ptzoptics.com/wp-content/uploads/2017/10/live-streaming-cameras-on-gary.jpg', description: 'hahaha', user_id: 4, subtopic_id: 5}
-        {name: 'Gordon Ramsay', image: 'https://i.ytimg.com/vi/YBi6-UoXxZw/maxresdefault.jpg', description: 'hahaha', user_id: 5, subtopic_id: 8}
-        {name: 'The Young Turks', image: 'https://static.makeuseof.com/wp-content/uploads/2017/08/twitch-change-video-gaming-670x335.jpg', description: 'hahaha', user_id: 1, subtopic_id: 9}
-        {name: 'Russia Today', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczL8wU1EYEbH9eFpSVoM7UwKeQDAsNtqEhL0S155TUcN_bdUO', description: 'hahaha', user_id: 2, subtopic_id: 11}
-        {name: 'Hot Wings', image: 'https://ptzoptics.com/wp-content/uploads/2017/10/live-streaming-cameras-on-gary.jpg', description: 'hahaha', user_id: 3, subtopic_id: 13}
-        {name: 'Starcraft Player', image: 'https://i.ytimg.com/vi/YBi6-UoXxZw/maxresdefault.jpg', description: 'hahaha', user_id: 4, subtopic_id: 15}
-        {name: 'Global News', image: 'https://static.makeuseof.com/wp-content/uploads/2017/08/twitch-change-video-gaming-670x335.jpg', description: 'hahaha', user_id: 5, subtopic_id: 17}
-        {name: 'Global News', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczL8wU1EYEbH9eFpSVoM7UwKeQDAsNtqEhL0S155TUcN_bdUO', description: 'hahaha', user_id: 1, subtopic_id: 19}
-        {name: 'Global News', image: 'https://ptzoptics.com/wp-content/uploads/2017/10/live-streaming-cameras-on-gary.jpg', description: 'hahaha', user_id: 2, subtopic_id: 13}
-        {name: 'Global News', image: 'https://i.ytimg.com/vi/YBi6-UoXxZw/maxresdefault.jpg', description: 'hahaha', user_id: 3, subtopic_id: 4}
-        {name: 'Global News', image: 'https://static.makeuseof.com/wp-content/uploads/2017/08/twitch-change-video-gaming-670x335.jpg', description: 'hahaha', user_id: 4, subtopic_id: 7}
-        {name: 'International News', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczL8wU1EYEbH9eFpSVoM7UwKeQDAsNtqEhL0S155TUcN_bdUO', description: 'hahaha', user_id: 5, subtopic_id: 9}
-        {name: 'US News', image: 'https://ptzoptics.com/wp-content/uploads/2017/10/live-streaming-cameras-on-gary.jpg', description: 'hahaha', user_id: 1, subtopic_id: 16}
-        {name: 'China News', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczL8wU1EYEbH9eFpSVoM7UwKeQDAsNtqEhL0S155TUcN_bdUO', description: 'hahaha', user_id: 2, subtopic_id: 13}
+      return knex('rooms').insert([
+        {name: 'Sports Central', image: 'https://i.ytimg.com/vi/YBi6-UoXxZw/maxresdefault.jpg', description: 'hahaha', user_id: 1, subtopic_id: 2},
+        {name: 'Politics Now', image: 'https://static.makeuseof.com/wp-content/uploads/2017/08/twitch-change-video-gaming-670x335.jpg', description: 'hahaha', user_id: 2, subtopic_id: 2},
+        {name: 'eSports eSports', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczL8wU1EYEbH9eFpSVoM7UwKeQDAsNtqEhL0S155TUcN_bdUO', description: 'hahaha', user_id: 3, subtopic_id: 3},
+        {name: 'FoodCentral', image: 'https://ptzoptics.com/wp-content/uploads/2017/10/live-streaming-cameras-on-gary.jpg', description: 'hahaha', user_id: 4, subtopic_id: 5},
+        {name: 'Gordon Ramsay', image: 'https://i.ytimg.com/vi/YBi6-UoXxZw/maxresdefault.jpg', description: 'hahaha', user_id: 5, subtopic_id: 8},
+        {name: 'The Young Turks', image: 'https://static.makeuseof.com/wp-content/uploads/2017/08/twitch-change-video-gaming-670x335.jpg', description: 'hahaha', user_id: 1, subtopic_id: 9},
+        {name: 'Russia Today', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczL8wU1EYEbH9eFpSVoM7UwKeQDAsNtqEhL0S155TUcN_bdUO', description: 'hahaha', user_id: 2, subtopic_id: 11},
+        {name: 'Hot Wings', image: 'https://ptzoptics.com/wp-content/uploads/2017/10/live-streaming-cameras-on-gary.jpg', description: 'hahaha', user_id: 3, subtopic_id: 13},
+        {name: 'Starcraft Player', image: 'https://i.ytimg.com/vi/YBi6-UoXxZw/maxresdefault.jpg', description: 'hahaha', user_id: 4, subtopic_id: 15},
+        {name: 'Global News', image: 'https://static.makeuseof.com/wp-content/uploads/2017/08/twitch-change-video-gaming-670x335.jpg', description: 'hahaha', user_id: 5, subtopic_id: 17},
+        {name: 'Global News', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczL8wU1EYEbH9eFpSVoM7UwKeQDAsNtqEhL0S155TUcN_bdUO', description: 'hahaha', user_id: 1, subtopic_id: 19},
+        {name: 'Global News', image: 'https://ptzoptics.com/wp-content/uploads/2017/10/live-streaming-cameras-on-gary.jpg', description: 'hahaha', user_id: 2, subtopic_id: 13},
+        {name: 'Global News', image: 'https://i.ytimg.com/vi/YBi6-UoXxZw/maxresdefault.jpg', description: 'hahaha', user_id: 3, subtopic_id: 4},
+        {name: 'Global News', image: 'https://static.makeuseof.com/wp-content/uploads/2017/08/twitch-change-video-gaming-670x335.jpg', description: 'hahaha', user_id: 4, subtopic_id: 7},
+        {name: 'International News', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczL8wU1EYEbH9eFpSVoM7UwKeQDAsNtqEhL0S155TUcN_bdUO', description: 'hahaha', user_id: 5, subtopic_id: 9},
+        {name: 'US News', image: 'https://ptzoptics.com/wp-content/uploads/2017/10/live-streaming-cameras-on-gary.jpg', description: 'hahaha', user_id: 1, subtopic_id: 16},
+        {name: 'China News', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRczL8wU1EYEbH9eFpSVoM7UwKeQDAsNtqEhL0S155TUcN_bdUO', description: 'hahaha', user_id: 2, subtopic_id: 13},
         {name: 'Europe News', image: 'https://ptzoptics.com/wp-content/uploads/2017/10/live-streaming-cameras-on-gary.jpg', description: 'hahaha', user_id: 3, subtopic_id: 17}
-      );
+      ]);
     })
     .then(function() {
       return knex('messages').insert([
