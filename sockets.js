@@ -35,7 +35,9 @@ module.exports = function (server, config, knex) {
             if(!activeClients[client.room]){
                 activeClients[client.room] = []
             }
-            activeClients[client.room].push(data);
+            if(data) {
+                activeClients[client.room].push(data);
+            }
             client.to(client.room).emit('message', {type: 'active', peers: activeClients[client.room]})
         })
 
