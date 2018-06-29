@@ -3,6 +3,7 @@ var socketIO = require('socket.io'),
     crypto = require('crypto');
 
 clients = {};
+activeClients = {};
 
 module.exports = function (server, config, knex) {
     var io = socketIO.listen(server);
@@ -30,8 +31,20 @@ module.exports = function (server, config, knex) {
             io.in(client.room).emit('message', {type: 'addPeerInfo', peers: clients[client.room]})
         })
 
-        client.on('hideVideo', function (data) {
-            client.to(client.room).emit('message', {type: 'hideVideo', peer: data})
+        client.on('active', function(data){
+            if(!activeClients[client.room]){
+                activeClients[client.room] = []
+            }
+            activeClients[client.room].push(data);
+            client.to(client.room).emit('message', {type: 'active', peers: activeClients[client.room]})
+        })
+
+        client.on('disabled', function(data){
+            var index = activeClients[client.room].indexOf(data);
+            if (index > -1) {
+              activeClients[client.room].splice(index, 1);
+            }
+            client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
         })
 
         // pass a message to another id
