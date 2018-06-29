@@ -42,7 +42,9 @@ module.exports = function (server, config, knex) {
         })
 
         client.on('disabled', function(data){
+            console.log(data)
             var index = activeClients[client.room].indexOf(data);
+            console.log(index)
             if (index > -1) {
               activeClients[client.room].splice(index, 1);
             }
