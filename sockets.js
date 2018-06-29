@@ -99,7 +99,7 @@ module.exports = function (server, config, knex) {
             safeCb(cb)(null, describeRoom(name));
             client.join(name);
             client.room = name;
-            client.to(client.room).emit('message', {type: 'active', peers: activeClients[client.room]})
+            client.emit('message', {type: 'active', peers: activeClients[client.room]})
 
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
             .select('messages.content', 'messages.created_at', 'users.username', 'rooms.name', 'rooms.id').where('rooms.name', name).then(function(rows) {
