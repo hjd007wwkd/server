@@ -99,6 +99,9 @@ module.exports = function (server, config, knex) {
             safeCb(cb)(null, describeRoom(name));
             client.join(name);
             client.room = name;
+            if(!activeClients[client.room]){
+                activeClients[client.room] = []
+            }
             client.emit('message', {type: 'active', peers: activeClients[client.room]})
 
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
