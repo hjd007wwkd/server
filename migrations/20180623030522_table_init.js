@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
        table.string('email');
        table.string('username');
        table.string('password');
+       table.string('avatar');
      }).then(function() {
   return knex.schema.createTable('topics', function(table) {
       table.increments('id');
@@ -22,6 +23,8 @@ exports.up = function(knex, Promise) {
       table.string('name');
       table.string('image');
       table.string('description');
+      table.integer('user_id').notNullable();
+      table.foreign('user_id').references('id').inTable('users');
       table.integer('subtopic_id').notNullable();
       table.foreign('subtopic_id').references('id').inTable('subtopics');
     }).then(function() {
