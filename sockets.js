@@ -175,6 +175,7 @@ module.exports = function (server, config, knex) {
         // we don't want to pass "leave" directly because the
         // event type string of "socket end" gets passed too.
         client.on('disconnect', function () {
+            console.log('asdsadas')
             siginalLost()
             removeFeed();
         });
