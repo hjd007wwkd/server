@@ -19,7 +19,8 @@ exports.seed = function(knex, Promise) {
         {name: 'b', email: 'b@b.com', username: 'Karl4563452', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'},
         {name: 'c', email: 'c@c.com', username: 'Sarah45345', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'},
         {name: 'd', email: 'd@d.com', username: 'Jrodan111', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'},
-        {name: 'e', email: 'e@e.com', username: 'Bob3452', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'}
+        {name: 'e', email: 'e@e.com', username: 'Bob3452', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'},
+        {name: 'f', email: 'f@f.com', username: 'hjd', password: 0000, avatar: 'https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png'}
       ]);
     })
     .then(function() {
