@@ -12,5 +12,11 @@
       "urls": "stun:stun1.l.google.com:19302"
     }
   ],
-  "turnservers": []
+  "turnservers": [
+    {
+      "url": "turn:turn.anyfirewall.com:443?transport=tcp",
+      "credential": "webrtc",
+      "username": "webrtc"
+    }
+  ]
 }
