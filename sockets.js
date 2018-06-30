@@ -65,8 +65,11 @@ module.exports = function (server, config, knex) {
         })
 
         client.on('addMsg', function (msg){
-            knex('messages').insert({content: msg.message.content, user_id: msg.userId, room_id: msg.roomId}).then(function(){
+            knex('users').select('id').where('username', msg.username).then(function(rows){
+              console.log(rows)
+              knex('messages').insert({content: msg.message.content, user_id: msg.userId, room_id: msg.roomId}).then(function(){
                 console.log('success')
+              })
             })
             client.to(client.room).emit('message', {type: 'addMsg', message: msg})
         })
