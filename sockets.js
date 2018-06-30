@@ -155,8 +155,6 @@ module.exports = function (server, config, knex) {
             }
             client.emit('message', {type: 'active', peers: activeClients[client.room]})
 
-            console.log(client.id)
-
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
             .select('messages.content', 'messages.created_at', 'users.username', 'rooms.name', 'rooms.id').where('rooms.id', name).then(function(rows) {
                 client.emit('message', {type: 'initMsg', payload: {messages: rows, room: {roomname: rows[0].name, roomId: rows[0].id}}});
@@ -180,8 +178,13 @@ module.exports = function (server, config, knex) {
             removeFeed();
         });
         client.on('leave', function () {
-            siginalLost()
+            siginalLost();
             removeFeed();
+            var index = activeClients[client.room].indexOf(data);
+            if (index > -1) {
+              activeClients[client.room].splice(index, 1);
+            }
+            client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
         });
 
         client.on('create', function (name, cb) {
