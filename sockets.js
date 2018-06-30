@@ -176,11 +176,6 @@ module.exports = function (server, config, knex) {
         // we don't want to pass "leave" directly because the
         // event type string of "socket end" gets passed too.
         client.on('disconnect', function () {
-
-            siginalLost()
-            removeFeed();
-        });
-        client.on('leave', function () {
             if(!activeClients[client.room]){
                 activeClients[client.room] = []
             }
@@ -190,6 +185,19 @@ module.exports = function (server, config, knex) {
               console.log(activeClients[client.room]);
             }
             client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
+            siginalLost()
+            removeFeed();
+        });
+        client.on('leave', function () {
+            // if(!activeClients[client.room]){
+            //     activeClients[client.room] = []
+            // }
+            // var index = activeClients[client.room].indexOf(client.id);
+            // if (index > -1) {
+            //   activeClients[client.room].splice(index, 1);
+            //   console.log(activeClients[client.room]);
+            // }
+            // client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
             siginalLost();
             removeFeed();
         });
