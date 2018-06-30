@@ -15,6 +15,8 @@ module.exports = function (server, config, knex) {
             audio: false
         };
 
+        client.emit('getNav', 'asdasd');
+
         client.on('addMsg', function (msg){
             knex('messages').insert({content: msg.message.content, user_id: msg.userId, room_id: msg.roomId}).then(function(){
                 console.log('success')
