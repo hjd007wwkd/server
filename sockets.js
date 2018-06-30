@@ -155,6 +155,8 @@ module.exports = function (server, config, knex) {
             }
             client.emit('message', {type: 'active', peers: activeClients[client.room]})
 
+            console.log(client.id)
+
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
             .select('messages.content', 'messages.created_at', 'users.username', 'rooms.name', 'rooms.id').where('rooms.id', name).then(function(rows) {
                 client.emit('message', {type: 'initMsg', payload: {messages: rows, room: {roomname: rows[0].name, roomId: rows[0].id}}});
