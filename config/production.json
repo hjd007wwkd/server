@@ -13,10 +13,6 @@
     }
   ],
   "turnservers": [
-    {
-      "url": "turn:turn.anyfirewall.com:443?transport=tcp",
-      "credential": "webrtc",
-      "username": "webrtc"
-    }
+
   ]
 }
