@@ -4,6 +4,26 @@ var socketIO = require('socket.io'),
 
 clients = {};
 activeClients = {};
+onlineUsers = {
+  1: 10,
+  2: 134,
+  3: 304,
+  4: 3,
+  5: 10,
+  6: 134,
+  7: 304,
+  8: 3,
+  9: 10,
+  10: 134,
+  11: 304,
+  12: 3,
+  13: 10,
+  14: 134,
+  15: 304,
+  16: 3,
+  17: 304,
+  18: 3
+}
 
 module.exports = function (server, config, knex) {
     var io = socketIO.listen(server);
@@ -18,6 +38,30 @@ module.exports = function (server, config, knex) {
         knex('topics').join('subtopics', 'topics.id', 'subtopics.topic_id')
         .select({topic: 'topics.name'}, {subtopic: 'subtopics.name'}).then(function(rows){
           client.emit('getNav', rows);
+        })
+
+        knex('topics').join('subtopics', 'topics.id', 'subtopics.topic_id')
+        .join('rooms', 'subtopics.id', 'rooms.subtopic_id')
+        .join('users', 'users.id', 'rooms.user_id')
+        .select({roomID: 'rooms.id'}, {roomName: 'rooms.name'}, {topic: 'topics.name'},
+          {subtopic: 'subtopics.name'}, {username: 'users.username'}, {avatar: 'users.avatar'},
+          {roomImage: 'rooms.image'}).then(function(rows){
+            client.emit('getRooms', rows.map((item) => {
+              var online = onlineUsers[item.roomID] ? onlineUsers[item.roomID] : 0
+              return {
+                roomID: item.roomID,
+                roomName: item.roomName,
+                topic: item.topic,
+                subtopic: item.subtopic,
+                owner: {
+                  username: item.username,
+                  avatar: item.avatar
+                },
+                roomImage: item.roomImage,
+                usersOnline: online
+              }
+            })
+          })
         })
 
         client.on('addMsg', function (msg){
