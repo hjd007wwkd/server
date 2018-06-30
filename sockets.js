@@ -1,6 +1,7 @@
 var socketIO = require('socket.io'),
     uuid = require('node-uuid'),
-    crypto = require('crypto');
+    crypto = require('crypto'),
+    randomAvatar = require('random-avatar');
 
 clients = {};
 activeClients = {};
@@ -62,6 +63,13 @@ module.exports = function (server, config, knex) {
               }
             })
           )
+        })
+
+        client.on('register', function(username, email, password) {
+            const avatar = randomAvatar()
+            knex('users').insert({username: username, email: email, password: password, avatar: avatar}).then(function(){
+                client.emit('success', username);
+            })
         })
 
         client.on('addMsg', function (msg){
