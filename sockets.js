@@ -169,14 +169,6 @@ module.exports = function (server, config, knex) {
                 }
                 io.in(client.room).emit('message', {type: 'removePeerInfo', peers: clients[client.room]})
             }
-
-            // if(activeClients[client.room]) {
-            //     var index = activeClients[client.room].indexOf(client.id);
-            //     if (index > -1) {
-            //       activeClients[client.room].splice(index, 1);
-            //     }
-            //     client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
-            // }
         }
 
         // we don't want to pass "leave" directly because the
