@@ -16,7 +16,7 @@ module.exports = function (server, config, knex) {
         };
 
         knex('topics').join('subtopics', 'topics.id', 'subtopics.topic_id')
-        .select('topics.name').then(function(rows){
+        .select({topic: 'topics.name'}, {subtopic: 'subtopics.name'}).then(function(rows){
           client.emit('getNav', rows);
         })
 
