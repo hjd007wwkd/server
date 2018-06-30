@@ -2,7 +2,6 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('users', function(table) {
        table.increments('id');
-       table.string('name');
        table.string('email');
        table.string('username');
        table.string('password');
@@ -22,7 +21,6 @@ exports.up = function(knex, Promise) {
       table.increments('id');
       table.string('name');
       table.string('image');
-      table.string('description');
       table.integer('user_id').notNullable();
       table.foreign('user_id').references('id').inTable('users');
       table.integer('subtopic_id').notNullable();
