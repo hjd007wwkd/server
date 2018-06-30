@@ -182,6 +182,9 @@ module.exports = function (server, config, knex) {
         client.on('leave', function () {
             siginalLost();
             removeFeed();
+            if(!activeClients[client.room]){
+                activeClients[client.room] = []
+            }
             var index = activeClients[client.room].indexOf(client.id);
             if (index > -1) {
               activeClients[client.room].splice(index, 1);
