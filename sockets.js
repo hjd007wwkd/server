@@ -171,6 +171,7 @@ module.exports = function (server, config, knex) {
             }
 
             if(activeClients[client.room]) {
+                console.log(client.id);
                 var index = activeClients[client.room].indexOf(client.id);
                 if (index > -1) {
                   activeClients[client.room].splice(index, 1);
