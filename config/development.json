@@ -29,7 +29,5 @@
       "urls": "stun:stun4.l.google.com:19302"
     }
   ],
-  "turnservers": [
-
-  ]
+  "turnservers": []
 }
