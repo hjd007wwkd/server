@@ -178,6 +178,15 @@ module.exports = function (server, config, knex) {
         client.on('disconnect', function () {
             siginalLost()
             removeFeed();
+            if(!activeClients[client.room]){
+                activeClients[client.room] = []
+            }
+            var index = activeClients[client.room].indexOf(client.id);
+            if (index > -1) {
+              activeClients[client.room].splice(index, 1);
+              console.log(activeClients[client.room]);
+            }
+            client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
         });
         client.on('leave', function () {
             siginalLost();
