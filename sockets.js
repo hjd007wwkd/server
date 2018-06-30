@@ -96,7 +96,7 @@ module.exports = function (server, config, knex) {
             var index = activeClients[client.room].indexOf(data);
             if (index > -1) {
               activeClients[client.room].splice(index, 1);
-              console.log('asdasd');
+              console.log(activeClients[client.room]);
             }
             client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
         })
