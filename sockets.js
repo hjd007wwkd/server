@@ -61,7 +61,7 @@ module.exports = function (server, config, knex) {
                 usersOnline: online
               }
             })
-          })
+          )
         })
 
         client.on('addMsg', function (msg){
