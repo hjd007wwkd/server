@@ -82,7 +82,7 @@ module.exports = function (server, config, knex) {
             io.in(client.room).emit('message', {type: 'addPeerInfo', peers: clients[client.room]})
         })
 
-        client.on('active', function(){
+        client.on('activeUser', function(){
             if(!activeClients[client.room]){
                 activeClients[client.room] = []
             }
@@ -90,7 +90,7 @@ module.exports = function (server, config, knex) {
             client.to(client.room).emit('message', {type: 'active', peers: activeClients[client.room]})
         })
 
-        client.on('disabled', function(){
+        client.on('disabledUser', function(){
             var index = activeClients[client.room].indexOf(client.id);
             if (index > -1) {
               activeClients[client.room].splice(index, 1);
