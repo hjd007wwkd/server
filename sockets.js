@@ -67,8 +67,14 @@ module.exports = function (server, config, knex) {
 
         client.on('register', function(username, email, password) {
             const avatar = randomAvatar()
-            knex('users').insert({username: username, email: email, password: password, avatar: avatar}).then(function(){
-                client.emit('success', username);
+            knex('users').select('email').where('email', email).then(function(row){
+                if(row.length > 0) {
+                    client.emit('fail', email);
+                } else {
+                    knex('users').insert({username: username, email: email, password: password, avatar: avatar}).then(function(){
+                        client.emit('success', username);
+                    })
+                }
             })
         })
 
