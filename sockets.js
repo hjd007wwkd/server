@@ -15,7 +15,10 @@ module.exports = function (server, config, knex) {
             audio: false
         };
 
-        client.emit('getNav', 'asdasd');
+        knex('topics').join('subtopics', 'topics.id', 'subtopics.topic_id')
+        .select('topics.name', 'subtopics.name').then(function(rows){
+          client.emit('getNav', rows);
+        })
 
         client.on('addMsg', function (msg){
             knex('messages').insert({content: msg.message.content, user_id: msg.userId, room_id: msg.roomId}).then(function(){
