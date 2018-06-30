@@ -82,23 +82,21 @@ module.exports = function (server, config, knex) {
             io.in(client.room).emit('message', {type: 'addPeerInfo', peers: clients[client.room]})
         })
 
-        client.on('active', function(data){
+        client.on('active', function(){
             if(!activeClients[client.room]){
                 activeClients[client.room] = []
             }
             if(data) {
-                activeClients[client.room].push(data);
+                activeClients[client.room].push(client.id);
             }
-            console.log(activeClients[client.room])
             client.to(client.room).emit('message', {type: 'active', peers: activeClients[client.room]})
         })
 
-        client.on('disabled', function(data){
-            var index = activeClients[client.room].indexOf(data);
+        client.on('disabled', function(){
+            var index = activeClients[client.room].indexOf(client.id);
             if (index > -1) {
               activeClients[client.room].splice(index, 1);
             }
-            console.log(activeClients[client.room])
             client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
         })
 
@@ -152,14 +150,9 @@ module.exports = function (server, config, knex) {
             safeCb(cb)(null, describeRoom(name));
             client.join(name);
             client.room = name;
-            if(!activeClients[client.room]){
+            if(activeClients[client.room]){
                 activeClients[client.room] = []
             }
-            if(data) {
-                activeClients[client.room].push(client.id);
-            }
-            console.log(activeClients[client.room])
-            client.to(client.room).emit('message', {type: 'active', peers: activeClients[client.room]})
             client.emit('message', {type: 'active', peers: activeClients[client.room]})
 
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
@@ -183,7 +176,6 @@ module.exports = function (server, config, knex) {
             var index = activeClients[client.room].indexOf(client.id);
             if (index > -1) {
               activeClients[client.room].splice(index, 1);
-              console.log(activeClients[client.room]);
             }
             client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
         }
