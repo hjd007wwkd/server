@@ -191,10 +191,7 @@ module.exports = function (server, config, knex) {
 
         function siginalLost() {
             if(client.username && clients[client.room]) {
-                const index = clients[client.room].indexOf(client.username);
-                if (index > -1) {
-                  clients[client.room].splice(index, 1);
-                }
+                delete clients[client.room][client.username];
                 io.in(client.room).emit('message', {type: 'removePeerInfo', peers: clients[client.room]})
             }
         }
