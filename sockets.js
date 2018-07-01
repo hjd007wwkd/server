@@ -117,6 +117,7 @@ module.exports = function (server, config, knex) {
                 activeClients[client.room] = []
             }
             activeClients[client.room].push(client.id);
+            console.log(activeClients[client.room])
             client.to(client.room).emit('message', {type: 'active', peers: activeClients[client.room]})
         })
 
