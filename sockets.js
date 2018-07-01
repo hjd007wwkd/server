@@ -79,10 +79,10 @@ module.exports = function (server, config, knex) {
         })
 
         client.on('login', function(email, password) {
-            knex('users').select('email', 'username', 'password').where('email', email).then(function(row){
+            knex('users').select('email', 'username', 'password', 'avatar').where('email', email).then(function(row){
                 if(row.length > 0) {
                     if(row[0].password.toString() === password.toString()) {
-                        client.emit('success', row[0].username, avatar);
+                        client.emit('success', row[0].username, row[0].avatar);
                     } else {
                         client.emit('fail', 'Password Incorrect');
                     }
