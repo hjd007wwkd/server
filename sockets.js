@@ -93,6 +93,16 @@ module.exports = function (server, config, knex) {
             })
         })
 
+        client.on('createRoom', function(subtopic, roomname, image, username) {
+            knex('users').select('id').where('username', username).then(function(user) {
+                knex('subtopics').select('id').where('name', subtopic).then(function(subtopic){
+                    knex('rooms').insert({ name: roomname, image: image, user_id: user[0].id, subtopic_id: subtopic[0].id }).then(function() {
+                        console.log('succeed insert')
+                    })
+                })
+            })
+        })
+
         client.on('addMsg', function (msg){
             knex('users').select('id').where('username', msg.username).then(function(row){
               knex('messages').insert({content: msg.message.content, user_id: row[0].id, room_id: msg.roomId}).then(function(){
