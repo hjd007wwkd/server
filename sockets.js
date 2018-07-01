@@ -78,6 +78,20 @@ module.exports = function (server, config, knex) {
             })
         })
 
+        client.on('login', function(username, email, password) {
+            knex('users').select('email', 'username', 'password').where('email', email).then(function(row){
+                if(row.length > 0) {
+                    if(row[0].password === password) {
+                        client.emit('success', row[0].username);
+                    } else {
+                        client.emit('fail', email);
+                    }
+                } else {
+                    client.emit('fail', email);
+                }
+            })
+        })
+
         client.on('addMsg', function (msg){
             knex('users').select('id').where('username', msg.username).then(function(row){
               knex('messages').insert({content: msg.message.content, user_id: row[0].id, room_id: msg.roomId}).then(function(){
