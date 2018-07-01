@@ -72,7 +72,7 @@ module.exports = function (server, config, knex) {
                     client.emit('fail', 'Email existed');
                 } else {
                     knex('users').insert({username: username, email: email, password: password, avatar: avatar}).then(function(){
-                        client.emit('success', username);
+                        client.emit('success', username, avatar);
                     })
                 }
             })
@@ -82,7 +82,7 @@ module.exports = function (server, config, knex) {
             knex('users').select('email', 'username', 'password').where('email', email).then(function(row){
                 if(row.length > 0) {
                     if(row[0].password.toString() === password.toString()) {
-                        client.emit('success', row[0].username);
+                        client.emit('success', row[0].username, avatar);
                     } else {
                         client.emit('fail', 'Password Incorrect');
                     }
