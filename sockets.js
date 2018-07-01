@@ -101,12 +101,15 @@ module.exports = function (server, config, knex) {
             client.to(client.room).emit('message', {type: 'addMsg', message: msg})
         })
 
-        client.on('setUsername', function (data){
-            client.username = data
+        client.on('setUsername', function (username, avatar){
+            client.username = username
+            client.avatar = avatar
             if(!clients[client.room]){
                 clients[client.room] = []
             }
-            clients[client.room].push(client.username);
+
+
+            clients[client.room].push([client.username, client.avatar]);
             io.in(client.room).emit('message', {type: 'addPeerInfo', peers: clients[client.room]})
         })
 
@@ -189,7 +192,7 @@ module.exports = function (server, config, knex) {
 
         function siginalLost() {
             if(client.username && clients[client.room]) {
-                const index = clients[client.room].indexOf(client.username);
+                const index = clients[client.room].indexOf([client.username, client.avatar]);
                 if (index > -1) {
                   clients[client.room].splice(index, 1);
                 }
