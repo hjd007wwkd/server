@@ -67,6 +67,7 @@ module.exports = function (server, config, knex) {
 
         client.on('register', function(username, email, password) {
             const avatar = randomAvatar()
+            console.log(avatar);
             knex('users').select('email').where('email', email).then(function(row){
                 if(row.length > 0) {
                     client.emit('fail', 'Email existed');
