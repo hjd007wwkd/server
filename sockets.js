@@ -1,7 +1,7 @@
 var socketIO = require('socket.io'),
     uuid = require('node-uuid'),
     crypto = require('crypto'),
-    randomAvatar = require('random-avatar');
+    randomAvatar = require('cartoon-avatar');;
 
 var clients = {};
 var activeClients = {};
@@ -186,7 +186,6 @@ module.exports = function (server, config, knex) {
 
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
             .select('messages.content', 'messages.created_at', 'users.username', 'users.avatar', 'rooms.name', 'rooms.id').where('rooms.id', name).then(function(rows) {
-              console.log(rows);
                 client.emit('message', {type: 'initMsg', payload: {messages: rows, room: {roomname: rows[0].name, roomId: rows[0].id}}});
             })
         }
