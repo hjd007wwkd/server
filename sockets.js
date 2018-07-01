@@ -96,7 +96,9 @@ module.exports = function (server, config, knex) {
         client.on('createRoom', function(subtopic, roomname, image, username) {
             console.log('asdasddasasd')
             knex('users').select('id').where('username', username).then(function(user) {
+                console.log(user);
                 knex('subtopics').select('id').where('name', subtopic).then(function(subtopic){
+                    console.log(subtopic)
                     knex('rooms').insert({ name: roomname, image: image, user_id: user[0].id, subtopic_id: subtopic[0].id }).then(function() {
                         console.log('succeed insert')
                     })
