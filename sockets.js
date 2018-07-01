@@ -3,9 +3,9 @@ var socketIO = require('socket.io'),
     crypto = require('crypto'),
     randomAvatar = require('random-avatar');
 
-clients = {};
-activeClients = {};
-onlineUsers = {
+var clients = {};
+var activeClients = {};
+var onlineUsers = {
   1: 10,
   2: 134,
   3: 304,
