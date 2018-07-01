@@ -1,7 +1,7 @@
 var socketIO = require('socket.io'),
     uuid = require('node-uuid'),
     crypto = require('crypto'),
-    randomAvatar = require('cartoon-avatar');;
+    toonavatar = require('cartoon-avatar');;
 
 var clients = {};
 var activeClients = {};
@@ -66,7 +66,7 @@ module.exports = function (server, config, knex) {
         })
 
         client.on('register', function(username, email, password) {
-            const avatar = randomAvatar()
+            const avatar = toonavatar.generate_avatar();
             console.log(avatar);
             knex('users').select('email').where('email', email).then(function(row){
                 if(row.length > 0) {
