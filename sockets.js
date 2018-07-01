@@ -78,10 +78,10 @@ module.exports = function (server, config, knex) {
             })
         })
 
-        client.on('login', function(username, email, password) {
+        client.on('login', function(email, password) {
             knex('users').select('email', 'username', 'password').where('email', email).then(function(row){
                 if(row.length > 0) {
-                    if(row[0].password === password) {
+                    if(row[0].password.toString() === password.toString()) {
                         client.emit('success', row[0].username);
                     } else {
                         client.emit('fail', email);
