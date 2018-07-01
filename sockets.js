@@ -69,7 +69,7 @@ module.exports = function (server, config, knex) {
             const avatar = randomAvatar()
             knex('users').select('email').where('email', email).then(function(row){
                 if(row.length > 0) {
-                    client.emit('fail', email);
+                    client.emit('fail', 'Email existed');
                 } else {
                     knex('users').insert({username: username, email: email, password: password, avatar: avatar}).then(function(){
                         client.emit('success', username);
@@ -84,10 +84,10 @@ module.exports = function (server, config, knex) {
                     if(row[0].password.toString() === password.toString()) {
                         client.emit('success', row[0].username);
                     } else {
-                        client.emit('fail', email);
+                        client.emit('fail', 'Password Incorrect');
                     }
                 } else {
-                    client.emit('fail', email);
+                    client.emit('fail', 'No email existed');
                 }
             })
         })
