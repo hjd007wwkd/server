@@ -171,8 +171,8 @@ module.exports = function (server, config, knex) {
             client.emit('message', {type: 'active', peers: activeClients[client.room]})
 
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
-            .select('messages.content', 'messages.created_at', 'users.username', 'users.avatar', 'rooms.name', 'rooms.id').where('rooms.id', name).then(function(rows) {
-                client.emit('message', {type: 'initMsg', payload: {messages: rows, room: {roomname: rows[0].name, roomId: rows[0].id}}});
+            .select('messages.content', 'messages.created_at', 'users.username', 'users.avatar', 'rooms.title', 'rooms.id').where('rooms.id', name).then(function(rows) {
+                client.emit('message', {type: 'initMsg', payload: {messages: rows, room: {roomname: rows[0].title, roomId: rows[0].id}}});
             })
         }
 
