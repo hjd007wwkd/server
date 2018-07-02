@@ -16,29 +16,27 @@ module.exports = function (server, config, knex) {
             audio: false
         };
 
-        knex('topics').join('subtopics', 'topics.id', 'subtopics.topic_id')
-        .select({topic: 'topics.name'}, {subtopic: 'subtopics.name'}).then(function(rows){
-          client.emit('getNav', rows);
-        })
-
-        knex('topics').join('subtopics', 'topics.id', 'subtopics.topic_id')
-        .join('rooms', 'subtopics.id', 'rooms.subtopic_id')
-        .join('users', 'users.id', 'rooms.user_id')
-        .select({roomID: 'rooms.id'}, {roomName: 'rooms.name'}, {topic: 'topics.name'},
-          {subtopic: 'subtopics.name'}, {username: 'users.username'}, {avatar: 'users.avatar'},
-          {roomImage: 'rooms.image'}).then(function(rows){
+        knex('rooms').join('users', 'users.id', 'rooms.user_id')
+        .select({roomID: 'rooms.id'}, {title: 'rooms.title'}, {image: 'rooms.image'},
+          {date: 'rooms.date'}, {site: 'rooms.site'}, {tags: 'rooms.tags'},
+          {description: 'rooms.contenttext'}, {url: 'rooms.url'}
+          {username: 'users.username'}, {avatar: 'users.avatar'})
+            .then(function(rows){
             client.emit('getRooms', rows.map((item) => {
               var online = clients[item.roomID] ? Object.keys(clients[item.roomID]).length : 0
               return {
                 roomID: item.roomID,
-                roomName: item.roomName,
-                topic: item.topic,
-                subtopic: item.subtopic,
+                title: item.title,
+                image: item.image,
+                date: item.date,
+                site: item.site,
+                tags: item.tags,
+                description: item.description,
+                url: item.url,
                 owner: {
                   username: item.username,
                   avatar: item.avatar
                 },
-                roomImage: item.roomImage,
                 usersOnline: online
               }
             })
@@ -73,12 +71,10 @@ module.exports = function (server, config, knex) {
             })
         })
 
-        client.on('createRoom', function(subtopic, roomname, image, username) {
+        client.on('createRoom', function(title, image, url, site, date, tags, contenthtml, contenttext, username) {
             knex('users').select('id').where('username', username).then(function(user) {
-                knex('subtopics').select('id').where('name', subtopic).then(function(subtopic){
-                    knex('rooms').insert({ name: roomname, image: image, user_id: user[0].id, subtopic_id: subtopic[0].id }).returning('*').then(function(data){
-                        client.emit('roomCreated', data);
-                    })
+                knex('rooms').insert({title: title, image: image, url: url, site: site, date: date, tags: tags, contenthtml: contenthtml, contenttext:contenttext, user_id: user[0].id}).returning('*').then(function(data){
+                    client.emit('roomCreated', data);
                 })
             })
         })
