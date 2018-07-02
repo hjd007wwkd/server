@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
       table.string('url');
       table.string('site');
       table.timestamp('date');
-      table.enu('tags');
+      table.string('tags');
       table.string('contenthtml');
       table.string('contenttext');
       table.integer('user_id').notNullable();
