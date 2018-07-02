@@ -177,7 +177,7 @@ module.exports = function (server, config, knex) {
 
             knex('rooms').select({roomID: 'rooms.id'}, {title: 'rooms.title'}, {image: 'rooms.image'},
                 {date: 'rooms.date'}, {site: 'rooms.site'}, {tags: 'rooms.tags'},
-                {description: 'rooms.contenttext'}, {url: 'rooms.url'}).where('rooms.id', name)
+                {description: 'rooms.contenttext'}, {url: 'rooms.url'}, {content: 'rooms.contenthtml'}).where('rooms.id', name)
                 .then(function(rows){
                     client.emit('message', {type: 'addArticle' , article: rows.map((item) => {
                       return {
@@ -188,6 +188,7 @@ module.exports = function (server, config, knex) {
                         site: item.site,
                         tags: item.tags,
                         description: item.description,
+                        content: item.content,
                         url: item.url
                       }
                     })}
