@@ -19,7 +19,7 @@ module.exports = function (server, config, knex) {
         knex('rooms').join('users', 'users.id', 'rooms.user_id')
         .select({roomID: 'rooms.id'}, {title: 'rooms.title'}, {image: 'rooms.image'},
           {date: 'rooms.date'}, {site: 'rooms.site'}, {tags: 'rooms.tags'},
-          {description: 'rooms.contenttext'}, {url: 'rooms.url'}
+          {description: 'rooms.contenttext'}, {url: 'rooms.url'},
           {username: 'users.username'}, {avatar: 'users.avatar'})
             .then(function(rows){
             client.emit('getRooms', rows.map((item) => {
