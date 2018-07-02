@@ -171,8 +171,27 @@ module.exports = function (server, config, knex) {
             client.emit('message', {type: 'active', peers: activeClients[client.room]})
 
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
-            .select('messages.content', 'messages.created_at', 'users.username', 'users.avatar', 'rooms.title', 'rooms.id').where('rooms.id', name).then(function(rows) {
-                client.emit('message', {type: 'initMsg', payload: {messages: rows, room: {roomname: rows[0].title, roomId: rows[0].id}}});
+            .select('messages.content', 'messages.created_at', 'users.username', 'users.avatar').where('rooms.id', name).then(function(rows) {
+                client.emit('message', {type: 'initMsg', messages: rows});
+            })
+
+            knex('rooms').select({roomID: 'rooms.id'}, {title: 'rooms.title'}, {image: 'rooms.image'},
+                {date: 'rooms.date'}, {site: 'rooms.site'}, {tags: 'rooms.tags'},
+                {description: 'rooms.contenttext'}, {url: 'rooms.url'}).where('rooms.id', name)
+                .then(function(rows){
+                    client.emit('message', {type: 'addArticle' , article: rows.map((item) => {
+                      return {
+                        roomID: item.roomID,
+                        title: item.title,
+                        image: item.image,
+                        date: item.date,
+                        site: item.site,
+                        tags: item.tags,
+                        description: item.description,
+                        url: item.url
+                      }
+                    })}
+                )
             })
         }
 
