@@ -71,7 +71,7 @@ module.exports = function (server, config, knex) {
         })
 
         client.on('typing', function(data) {
-            socket.broadcast.emit('message', {type: 'typing', peer: data})
+            client.to(client.room).emit('message', {type: 'typing', peer: data})
         })
 
         client.on('createRoom', function(title, image, url, site, date, tags, contenthtml, contenttext, username) {
