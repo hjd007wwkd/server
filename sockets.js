@@ -116,7 +116,7 @@ module.exports = function (server, config, knex) {
         })
 
         client.on('banned', function(userId){
-            client.to(userId).emit('message', {type: 'addBanned'})
+            client.to(userId).emit('message', {type: 'addBanned', peers: userId})
         })
 
         client.on('activeUser', function(){
