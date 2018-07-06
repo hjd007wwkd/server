@@ -129,7 +129,7 @@ module.exports = function (server, config, knex) {
 
         client.on('disabledUser', function(){
             delete activeClients[client.room][client.id];
-            client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
+            client.to(client.room).emit('message', {type: 'active', peers: activeClients[client.room]})
         })
 
         // pass a message to another id
@@ -227,7 +227,7 @@ module.exports = function (server, config, knex) {
             }
             if(activeClients[client.room][client.id]) {
                 delete activeClients[client.room][client.id];
-                client.to(client.room).emit('message', {type: 'disabled', peers: activeClients[client.room]})
+                client.to(client.room).emit('message', {type: 'active', peers: activeClients[client.room]})
             }
             siginalLost();
             removeFeed();
