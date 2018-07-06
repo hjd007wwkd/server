@@ -1,13 +1,13 @@
-var socketIO = require('socket.io'),
+const socketIO = require('socket.io'),
     uuid = require('node-uuid'),
     crypto = require('crypto'),
     toonavatar = require('cartoon-avatar');;
 
-var clients = {};
-var activeClients = {};
+const clients = {};
+const activeClients = {};
 
 module.exports = function (server, config, knex) {
-    var io = socketIO.listen(server);
+    const io = socketIO.listen(server);
 
     io.sockets.on('connection', function (client) {
         client.resources = {
@@ -23,7 +23,7 @@ module.exports = function (server, config, knex) {
           {username: 'users.username'}, {avatar: 'users.avatar'})
             .then(function(rows){
             client.emit('getRooms', rows.map((item) => {
-              var online = clients[item.roomID] ? Object.keys(clients[item.roomID]).length : 0
+              const online = clients[item.roomID] ? Object.keys(clients[item.roomID]).length : 0
               return {
                 roomID: item.roomID,
                 title: item.title,
@@ -104,7 +104,7 @@ module.exports = function (server, config, knex) {
 
         client.on('like', function(username){
             if(clients[client.room][username].userList.includes(client.username)){
-                var index = clients[client.room][username].userList.indexOf(client.username);
+                const index = clients[client.room][username].userList.indexOf(client.username);
                 clients[client.room][username].userList.splice(index, 1);
                 clients[client.room][username].like -= 1;
                 io.in(client.room).emit('message', {type: 'addPeerInfo', peers: clients[client.room]})
@@ -136,7 +136,7 @@ module.exports = function (server, config, knex) {
         client.on('message', function (details) {
             if (!details) return;
 
-            var otherClient = io.to(details.to);
+            const otherClient = io.to(details.to);
             if (!otherClient) return;
 
             details.from = client.id;
@@ -245,7 +245,7 @@ module.exports = function (server, config, knex) {
                 name = uuid();
             }
             // check if exists
-            var room = io.nsps['/'].adapter.rooms[name];
+            const room = io.nsps['/'].adapter.rooms[name];
             if (room && room.length) {
                 safeCb(cb)('taken');
             } else {
