@@ -162,9 +162,6 @@ module.exports = function (server, config, knex) {
                 });
                 if (!type) {
                     client.leave(client.room);
-                    client.room = undefined;
-                    client.username = undefined;
-                    client.avatar = undefined;
                 }
             }
         }
@@ -236,7 +233,7 @@ module.exports = function (server, config, knex) {
             removeFeed();
         });
         client.on('leave', function () {
-            removeFeed();
+            console.log('leave')
         });
 
         client.on('create', function (name, cb) {
