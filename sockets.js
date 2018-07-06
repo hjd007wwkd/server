@@ -181,6 +181,7 @@ module.exports = function (server, config, knex) {
             // leave any existing rooms
             removeFeed();
             safeCb(cb)(null, describeRoom(name));
+
             client.join(name);
             client.room = name;
             if(!activeClients[client.room]){
@@ -235,8 +236,7 @@ module.exports = function (server, config, knex) {
             removeFeed();
         });
         client.on('leave', function () {
-            siginalLost();
-            removeFeed();
+            console.log('leave')
         });
 
         client.on('create', function (name, cb) {
