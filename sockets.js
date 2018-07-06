@@ -233,7 +233,7 @@ module.exports = function (server, config, knex) {
             removeFeed();
         });
         client.on('leave', function () {
-            console.log('leave')
+            removeFeed();
         });
 
         client.on('create', function (name, cb) {
