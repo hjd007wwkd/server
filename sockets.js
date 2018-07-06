@@ -169,34 +169,34 @@ module.exports = function (server, config, knex) {
             }
         }
 
-        function join(name, cb) {
+        function join(roomId, cb) {
             // sanity check
-            if (typeof name !== 'string') return;
+            if (typeof roomId !== 'string') return;
             // check if maximum number of clients reached
             if (config.rooms && config.rooms.maxClients > 0 &&
-                clientsInRoom(name) >= config.rooms.maxClients) {
+                clientsInRoom(roomId) >= config.rooms.maxClients) {
                 safeCb(cb)('full');
                 return;
             }
             // leave any existing rooms
             removeFeed();
-            safeCb(cb)(null, describeRoom(name));
+            safeCb(cb)(null, describeRoom(roomId));
 
-            client.join(name);
-            client.room = name;
+            client.join(roomId);
+            client.room = roomId;
             if(!activeClients[client.room]){
                 activeClients[client.room] = {}
             }
             client.emit('message', {type: 'active', peers: activeClients[client.room]})
 
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
-            .select('messages.content', 'messages.created_at', 'users.username', 'users.avatar').where('rooms.id', name).then(function(rows) {
+            .select('messages.content', 'messages.created_at', 'users.username', 'users.avatar').where('rooms.id', roomId).then(function(rows) {
                 client.emit('message', {type: 'initMsg', messages: rows});
             })
 
             knex('rooms').select({roomID: 'rooms.id'}, {title: 'rooms.title'}, {image: 'rooms.image'},
                 {date: 'rooms.date'}, {site: 'rooms.site'}, {tags: 'rooms.tags'},
-                {description: 'rooms.contenttext'}, {url: 'rooms.url'}, {content: 'rooms.contenthtml'}).where('rooms.id', name)
+                {description: 'rooms.contenttext'}, {url: 'rooms.url'}, {content: 'rooms.contenthtml'}).where('rooms.id', roomId)
                 .then(function(rows){
                     client.emit('message', {type: 'addArticle' , article: rows.map((item) => {
                       return {
