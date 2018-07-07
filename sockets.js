@@ -45,9 +45,9 @@ module.exports = function (server, config, knex) {
 
         client.on('register', function(username, email, password) {
             const avatar = toonavatar.generate_avatar();
-            knex('users').select('email').where('email', email).then(function(row){
+            knex('users').select('email', 'username').where('email', email).orWhere('username', username).then(function(row){
                 if(row.length > 0) {
-                    client.emit('fail', 'Email existed');
+                    client.emit('fail', 'Email or Username already exists');
                 } else {
                     knex('users').insert({username: username, email: email, password: password, avatar: avatar}).then(function(){
                         client.emit('success', username, avatar);
@@ -62,10 +62,10 @@ module.exports = function (server, config, knex) {
                     if(row[0].password.toString() === password.toString()) {
                         client.emit('success', row[0].username, row[0].avatar);
                     } else {
-                        client.emit('fail', 'Password Incorrect');
+                        client.emit('fail', 'Incorrect Password');
                     }
                 } else {
-                    client.emit('fail', 'No email existed');
+                    client.emit('fail', 'Email does not exist');
                 }
             })
         })
