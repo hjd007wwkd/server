@@ -188,6 +188,7 @@ module.exports = function (server, config, knex) {
         })
 
         client.on('like', function(username){
+            console.log(username)
             if(clients[client.room][username].userList.includes(client.username)){
                 const index = clients[client.room][username].userList.indexOf(client.username);
                 clients[client.room][username].userList.splice(index, 1);
