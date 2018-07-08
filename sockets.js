@@ -272,7 +272,7 @@ module.exports = function (server, config, knex) {
             client.emit('message', {type: 'active', peers: activeClients[client.room]})
 
             knex('messages').join('users', 'messages.user_id', 'users.id').join('rooms', 'messages.room_id', 'rooms.id')
-            .select('messages.content', 'messages.created_at', 'users.username', 'users.avatar').where('rooms.id', roomId).orderBy('messages.created_at', 'desc').then(function(rows) {
+            .select('messages.content', 'messages.created_at', 'users.username', 'users.avatar').where('rooms.id', roomId).orderBy('messages.created_at').then(function(rows) {
                 client.emit('message', {type: 'initMsg', messages: rows});
             })
 
