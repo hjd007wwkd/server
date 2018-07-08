@@ -9,7 +9,7 @@ const clientList = {
     Kihun50: {username: 'Kihun50', avatar: toonavatar.generate_avatar(), like: 9, userList: []},
     Tool030: {username: 'Tool030', avatar: toonavatar.generate_avatar(), like: 10, userList: []},
     Gab1230: {username: 'Gab1230', avatar: toonavatar.generate_avatar(), like: 3, userList: []},
-    Vna13: {username: 'vna13', avatar: toonavatar.generate_avatar(), like: 0, userList: []},
+    Vna13: {username: 'Vna13', avatar: toonavatar.generate_avatar(), like: 0, userList: []},
     Bnn043: {username: 'Bnn043', avatar: toonavatar.generate_avatar(), like: 7, userList: []},
     Hunn45: {username: 'Hunn45', avatar: toonavatar.generate_avatar(), like: 1, userList: []},
     Yisan: {username: 'Yisan', avatar: toonavatar.generate_avatar(), like: 0, userList: []},
