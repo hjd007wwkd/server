@@ -3,7 +3,92 @@ const socketIO = require('socket.io'),
     crypto = require('crypto'),
     toonavatar = require('cartoon-avatar');;
 
-const clients = {};
+const clientList = {
+    Bob2030: {username: 'Bob2030', avatar: toonavatar.generate_avatar();, like: 3, userList: []},
+    Cool531: {username: 'Cool531', avatar: toonavatar.generate_avatar();, like: 5, userList: []},
+    Kihun50: {username: 'Kihun50', avatar: toonavatar.generate_avatar();, like: 9, userList: []},
+    Tool030: {username: 'Tool030', avatar: toonavatar.generate_avatar();, like: 10, userList: []},
+    Gab4300: {username: 'Gab1230', avatar: toonavatar.generate_avatar();, like: 3, userList: []},
+    Vna13: {username: 'vna13', avatar: toonavatar.generate_avatar();, like: 0, userList: []},
+    Bnn043: {username: 'Bnn043', avatar: toonavatar.generate_avatar();, like: 7, userList: []},
+    Hunn45: {username: 'Hunn45', avatar: toonavatar.generate_avatar();, like: 1, userList: []},
+    Yisan: {username: 'Yisan', avatar: toonavatar.generate_avatar();, like: 0, userList: []},
+    Jarn00: {username: 'Jarn00', avatar: toonavatar.generate_avatar();, like: 2, userList: []},
+    Hanna00: {username: 'Hanna00', avatar: toonavatar.generate_avatar();, like: 4, userList: []},
+    Koooo: {username: 'Koooo', avatar: toonavatar.generate_avatar();, like: 5, userList: []},
+    Talan: {username: 'Talan', avatar: toonavatar.generate_avatar();, like: 2, userList: []},
+    Ghann: {username: 'Ghann', avatar: toonavatar.generate_avatar();, like: 0, userList: []},
+    Jimm09: {username: 'Jimm09', avatar: toonavatar.generate_avatar();, like: 8, userList: []},
+    Nmmm453: {username: 'Nmmm453', avatar: toonavatar.generate_avatar();, like: 3, userList: []},
+    Jkcc836: {username: 'Jkcc836', avatar: toonavatar.generate_avatar();, like: 6, userList: []},
+    Cvx3834: {username: 'Cvx3834', avatar: toonavatar.generate_avatar();, like: 1, userList: []},
+    Jiop0000: {username: 'Jiop0000', avatar: toonavatar.generate_avatar();, like: 1, userList: []},
+    Zsda9483: {username: 'Zsda9483', avatar: toonavatar.generate_avatar();, like: 0, userList: []},
+}
+
+
+const clients = {
+    1: {
+        Bob2030: clientList.Bob2030,
+        Cool531: clientList.Cool531,
+        Kihun50: clientList.Kihun50,
+        Tool030: clientList.Tool030,
+        Gab4300: clientList.Gab4300,
+        Vna13: clientList.Vna13,
+        Bnn043: clientList.Bnn043,
+        Hunn45: clientList.Hunn45,
+        Yisan: clientList.Yisan,
+        Jarn00: clientList.Jarn00
+    },
+    2: {
+        Jarn00: clientList.Jarn00,
+        Cool531: clientList.Cool531,
+        Hanna00: clientList.Hanna00,
+        Tool030: clientList.Tool030,
+        Koooo: clientList.Koooo,
+        Vna13: clientList.Vna13,
+        Talan: clientList.Talan,
+        Ghann: clientList.Ghann,
+        Jimm09: clientList.Jimm09,
+        Nmmm453: clientList.Nmmm453
+    },
+    3: {
+        Jarn00: clientList.Jarn00,
+        Jkcc836: clientList.Jkcc836,
+        Hanna00: clientList.Hanna00,
+        Cvx3834: clientList.Cvx3834,
+        Koooo: clientList.Koooo,
+        Jiop0000: clientList.Jiop0000,
+        Talan: clientList.Talan,
+        Ghann: clientList.Ghann,
+        Zsda9483: clientList.Zsda9483,
+        Nmmm453: clientList.Nmmm453
+    },
+    4: {
+        Koooo: clientList.Koooo,
+        Tool030: clientList.Tool030,
+        Bob2030: clientList.Bob2030,
+        Cool531: clientList.Cool531,
+        Ghann: clientList.Ghann,
+        Zsda9483: clientList.Zsda9483,
+        Talan: clientList.Talan,
+        Vna13: clientList.Vna13,
+        Zsda9483: clientList.Zsda9483,
+        Nmmm453: clientList.Nmmm453
+    },
+    5: {
+        Vna13: clientList.Vna13,
+        Hanna00: clientList.Hanna00,
+        Zsda9483: clientList.Zsda9483,
+        Kihun50: clientList.Kihun50,
+        Ghann: clientList.Ghann,
+        Cvx3834: clientList.Cvx3834,
+        Talan: clientList.Talan,
+        Yisan: clientList.Yisan,
+        Jimm09: clientList.Jimm09,
+        Nmmm453: clientList.Nmmm453
+    }
+};
 const activeClients = {};
 
 module.exports = function (server, config, knex) {
