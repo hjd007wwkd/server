@@ -38,7 +38,17 @@ const clients = {
         Bnn043: clientList.Bnn043,
         Hunn45: clientList.Hunn45,
         Yisan: clientList.Yisan,
-        Jarn00: clientList.Jarn00
+        Nmmm453: clientList.Nmmm453,
+        Jimm09: clientList.Jimm09,
+        Jarn00: clientList.Jarn00,
+        Hanna00: clientList.Hanna00,
+        Zsda9483: clientList.Zsda9483,
+        Ghann: clientList.Ghann,
+        Talan: clientList.Talan,
+        Koooo: clientList.Koooo,
+        Jkcc836: clientList.Jkcc836,
+        Cvx3834: clientList.Cvx3834,
+        Jiop0000: clientList.Jiop0000
     },
     36: {
         Jarn00: clientList.Jarn00,
@@ -50,7 +60,9 @@ const clients = {
         Talan: clientList.Talan,
         Ghann: clientList.Ghann,
         Jimm09: clientList.Jimm09,
-        Nmmm453: clientList.Nmmm453
+        Nmmm453: clientList.Nmmm453,
+        Yisan: clientList.Yisan,
+        Bnn043: clientList.Bnn043
     },
     30: {
         Jarn00: clientList.Jarn00,
@@ -74,7 +86,9 @@ const clients = {
         Talan: clientList.Talan,
         Vna13: clientList.Vna13,
         Zsda9483: clientList.Zsda9483,
-        Nmmm453: clientList.Nmmm453
+        Nmmm453: clientList.Nmmm453,
+        Cvx3834: clientList.Cvx3834,
+        Jiop0000: clientList.Jiop0000
     },
     35: {
         Vna13: clientList.Vna13,
@@ -87,7 +101,99 @@ const clients = {
         Yisan: clientList.Yisan,
         Jimm09: clientList.Jimm09,
         Nmmm453: clientList.Nmmm453
+    },
+    6: {
+        Ghann: clientList.Ghann,
+        Cvx3834: clientList.Cvx3834,
+        Talan: clientList.Talan,
+        Yisan: clientList.Yisan,
+        Jimm09: clientList.Jimm09,
+        Nmmm453: clientList.Nmmm453
+    },
+    7: {
+        Vna13: clientList.Vna13,
+        Hanna00: clientList.Hanna00,
+        Zsda9483: clientList.Zsda9483,
+        Kihun50: clientList.Kihun50,
+        Ghann: clientList.Ghann,
+        Cvx3834: clientList.Cvx3834,
+        Talan: clientList.Talan
+    },
+    12: {
+        Koooo: clientList.Koooo,
+        Tool030: clientList.Tool030,
+        Bob2030: clientList.Bob2030,
+        Cool531: clientList.Cool531,
+        Ghann: clientList.Ghann,
+        Zsda9483: clientList.Zsda9483
+    },
+    32: {
+        Ghann: clientList.Ghann,
+        Jimm09: clientList.Jimm09,
+        Nmmm453: clientList.Nmmm453
+    },
+    28: {
+        Gab1230: clientList.Gab1230,
+        Vna13: clientList.Vna13,
+        Bnn043: clientList.Bnn043,
+        Hunn45: clientList.Hunn45,
+        Yisan: clientList.Yisan,
+        Jarn00: clientList.Jarn00
+    },
+    39: {
+        Bob2030: clientList.Bob2030,
+        Cool531: clientList.Cool531,
+        Kihun50: clientList.Kihun50,
+        Tool030: clientList.Tool030
+    },
+    11: {
+        Talan: clientList.Talan,
+        Ghann: clientList.Ghann,
+        Jimm09: clientList.Jimm09,
+        Nmmm453: clientList.Nmmm453
+    },
+    13: {
+        Bob2030: clientList.Bob2030,
+        Cool531: clientList.Cool531,
+        Kihun50: clientList.Kihun50,
+        Tool030: clientList.Tool030,
+        Gab1230: clientList.Gab1230,
+        Vna13: clientList.Vna13,
+        Bnn043: clientList.Bnn043
+    },
+    22: {
+        Ghann: clientList.Ghann,
+        Cvx3834: clientList.Cvx3834,
+        Talan: clientList.Talan
+    },
+    31: {
+        Ghann: clientList.Ghann,
+        Zsda9483: clientList.Zsda9483
+    },
+    19: {
+        Ghann: clientList.Ghann,
+        Zsda9483: clientList.Zsda9483,
+        Talan: clientList.Talan,
+        Vna13: clientList.Vna13,
+        Zsda9483: clientList.Zsda9483
+    },
+    38: {
+        Gab1230: clientList.Gab1230,
+        Vna13: clientList.Vna13,
+        Bnn043: clientList.Bnn043
+    },
+    25: {
+        Bob2030: clientList.Bob2030,
+        Cool531: clientList.Cool531,
+        Kihun50: clientList.Kihun50,
+        Tool030: clientList.Tool030,
+        Gab1230: clientList.Gab1230
+    },
+    8: {
+        Jimm09: clientList.Jimm09,
+        Nmmm453: clientList.Nmmm453
     }
+
 };
 const activeClients = {};
 
